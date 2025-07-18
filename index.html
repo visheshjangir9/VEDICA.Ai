@@ -1,39 +1,461 @@
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vedica AI</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vedica.ai – AI, Simplified.</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Orbitron for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom CSS for the spiritual-tech fusion feel */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA; /* Slightly off-white background */
+            color: #2c3e50;
+        }
+
+        .font-heading {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Custom Colors */
+        .bg-deep-indigo { background-color: #303F9F; }
+        .text-deep-indigo { color: #303F9F; }
+        .border-deep-indigo { border-color: #303F9F; }
+        .ring-deep-indigo:focus, .ring-deep-indigo:focus-within { --tw-ring-color: #303F9F; }
+        .hover\:bg-indigo-700:hover { background-color: #3949AB; }
+        .border-earth-tone { border-color: #D7CCC8; }
+
+        /* Redesigned Hero Section with a cleaner, elegant gradient */
+        .hero-gradient {
+            background-color: #1A237E; /* Dark Indigo Base */
+            background-image: radial-gradient(circle at top right, rgba(74, 20, 140, 0.5), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(48, 63, 159, 0.6), transparent 50%);
+        }
+
+        /* Card styles */
+        .ai-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #FFFFFF;
+        }
+        .ai-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(48, 63, 159, 0.15);
+        }
+
+        /* Polished Filter button styles */
+        .filter-btn {
+            transition: all 0.3s ease;
+            border: 1px solid #CFD8DC;
+        }
+        .filter-btn:hover {
+            background-color: #ECEFF1;
+            transform: translateY(-2px);
+        }
+        .filter-btn.active {
+            background-color: #303F9F;
+            color: white;
+            border-color: #303F9F;
+            box-shadow: 0 4px 12px rgba(48, 63, 159, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Sticky Nav styles */
+        #sticky-nav {
+            transition: all 0.4s ease-in-out;
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        #sticky-nav.scrolled {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Search Suggestions Box */
+        .suggestions-container {
+            position: absolute;
+            width: 100%;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-top: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+        }
+        .suggestions-container.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .suggestion-item:hover {
+            background-color: #f0f2f5;
+        }
+        .suggestion-item:not(:last-child) {
+            border-bottom: 1px solid #e5e7eb;
+        }
+    </style>
 </head>
-<body>
-  <!-- Your website's HTML content -->
+<body class="bg-gray-50">
 
-  <header>
-    <h1>Vedica AI</h1>
-    <input type="text" id="searchBar" placeholder="Search AI tools...">
-    <button onclick="handleSearch()">Search</button>
-  </header>
+    <!-- Sticky Navigation (Initially Hidden) -->
+    <nav id="sticky-nav" class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg shadow-md">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center gap-4">
+            <a href="#" class="font-heading text-2xl font-black text-deep-indigo hidden sm:block">Vedica.ai</a>
+            <div class="relative flex-grow max-w-xl">
+                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                </div>
+                <input type="text" id="stickySearchInput" placeholder="Search..." autocomplete="off" class="w-full py-2 pl-11 pr-4 text-gray-900 bg-gray-100 border-2 border-transparent rounded-full focus:outline-none focus:ring-2 ring-deep-indigo">
+                <div id="sticky-suggestions" class="suggestions-container"></div>
+            </div>
+            <a href="#subscribe-section" class="flex-shrink-0 bg-deep-indigo text-white font-bold py-2 px-5 rounded-full hover:bg-indigo-700 transition-colors duration-300">
+                Subscribe
+            </a>
+        </div>
+    </nav>
 
-  <main>
-    <!-- Tools and AI cards will go here -->
-    <section id="aiToolsSection"></section>
+    <!-- Header & Hero Section -->
+    <header id="hero-section" class="hero-gradient text-white shadow-lg relative overflow-hidden">
+        <div class="container mx-auto px-6 py-24 md:py-32 text-center relative z-10">
+            <h1 class="font-heading text-5xl md:text-7xl font-black leading-tight tracking-tight">
+                Vedica.ai
+            </h1>
+            <p class="mt-4 text-lg md:text-2xl text-indigo-200 max-w-3xl mx-auto">
+                AI, Simplified.
+            </p>
+        </div>
+    </header>
 
-    <!-- Subscription Form -->
-    <footer>
-      <h2>Subscribe for Updates</h2>
-      <form id="subscription-form">
-        <input type="email" id="email" placeholder="Enter your email" required />
-        <button type="submit">Subscribe</button>
-      </form>
+    <!-- Search & Filter Section -->
+    <section id="search-and-filter" class="py-12 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <!-- Search Bar -->
+            <div class="max-w-3xl mx-auto">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="mainSearchInput" 
+                        placeholder="Search for any AI tool (e.g., 'FaceSwap', 'ImageAI', 'VoiceChanger')..."
+                        autocomplete="off"
+                        class="w-full py-4 pl-14 pr-6 text-lg text-gray-900 bg-white border-2 border-gray-200 rounded-full focus:outline-none focus:ring-2 ring-deep-indigo focus:border-transparent transition-all duration-300"
+                    >
+                    <div id="main-suggestions" class="suggestions-container"></div>
+                </div>
+            </div>
+            <!-- Filter Buttons -->
+            <div id="filter-buttons" class="flex flex-wrap justify-center gap-3 md:gap-4 mt-8">
+                <!-- Buttons will be generated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tools Grid -->
+    <main id="tools-section" class="container mx-auto px-6 py-16">
+        <div id="aiGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <!-- AI Tool Cards will be dynamically inserted here by JavaScript -->
+        </div>
+        <div id="noResults" class="hidden text-center py-16">
+            <p class="text-2xl font-semibold text-gray-600">No matching AI tools found.</p>
+            <p class="text-gray-500 mt-2">Try a different search or filter.</p>
+        </div>
+    </main>
+
+    <!-- Email Subscription Section -->
+    <section id="subscribe-section" class="bg-white py-16 sm:py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="font-heading text-3xl md:text-4xl font-bold text-gray-900">Stay Updated</h2>
+            <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Get notified when new AI tools are added. Join our mailing list for the latest updates.</p>
+            <form id="subscribe-form" class="mt-8 max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                <input type="email" id="email-input" required placeholder="your.email@example.com" class="w-full flex-grow px-5 py-3 text-base text-gray-900 bg-gray-100 border-2 border-gray-200 rounded-full focus:outline-none focus:ring-2 ring-deep-indigo focus:border-transparent transition-all duration-300">
+                <button type="submit" id="subscribe-button" class="bg-deep-indigo text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    Subscribe
+                </button>
+            </form>
+            <div id="subscribe-message" class="mt-4 font-semibold h-6"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2024 Vedica.ai. All Rights Reserved.</p>
+            <p class="mt-2 text-sm">A curated directory for the AI curious.</p>
+        </div>
     </footer>
-  </main>
 
-  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-analytics.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <script src="script.js" defer></script>
+    <script>
+        // --- AI Tool Data with Massively Expanded Keywords for Smart Search ---
+        const aiTools = [
+            // Presentation
+            { name: 'Tome', category: 'Presentation', useCase: 'Generative storytelling format for creating immersive presentations and narratives.', pricing: 'Freemium', link: 'https://tome.app/', keywords: ['ppt', 'presentation', 'storytelling', 'slides', 'deck', 'narrative', 'report', 'slide generation', 'powerpoint ai'] },
+            { name: 'Gamma', category: 'Presentation', useCase: 'A new medium for presenting ideas. Creates beautiful docs, decks & webpages.', pricing: 'Freemium', link: 'https://gamma.app/', keywords: ['ppt', 'presentation', 'webpage', 'docs', 'slides', 'memo', 'document', 'slide generation'] },
+            
+            // Video & Animation
+            { name: 'Runway', category: 'Video & Animation', useCase: 'Advanced AI video tools, from text-to-video (Gen-2) to motion tracking.', pricing: 'Freemium', link: 'https://runwayml.com/', keywords: ['video', 'editing', 'vfx', 'filmmaking', 'gen-2', 'animation', 'movie', 'clip', 'video generation', 'video creation', 'special effects'] },
+            { name: 'Synthesia', category: 'Video & Animation', useCase: 'Create professional videos with AI avatars and voiceovers in over 120 languages.', pricing: 'Subscription', link: 'https://www.synthesia.io/', keywords: ['video', 'avatar', 'voiceover', 'synthesis', 'training', 'talking head', 'video generation', 'digital human', 'presenter', 'faceswap', 'voice changer'] },
+            { name: 'Pika', category: 'Video & Animation', useCase: 'Idea-to-video platform that brings your creativity to motion with AI.', pricing: 'Freemium', link: 'https://pika.art/', keywords: ['video', 'generation', 'creative', 'animation', 'text-to-video', 'motion', 'video creation', 'animate image'] },
+            { name: 'HeyGen', category: 'Video & Animation', useCase: 'AI video platform with customizable avatars, voice cloning, and text-to-video.', pricing: 'Freemium', link: 'https://www.heygen.com/', keywords: ['video', 'avatar', 'spokesperson', 'marketing', 'dubbing', 'video generation', 'faceswap', 'talking photo'] },
+            
+            // Writing & Content
+            { name: 'Jasper', category: 'Writing & Content', useCase: 'The enterprise-grade AI copilot for marketing teams to create on-brand content.', pricing: 'Subscription', link: 'https://www.jasper.ai/', keywords: ['writing', 'copywriting', 'marketing', 'content', 'seo', 'blog', 'story', 'text generation', 'article writer'] },
+            { name: 'Copy.ai', category: 'Writing & Content', useCase: 'AI-powered copywriter that generates high-quality marketing copy and content.', pricing: 'Freemium', link: 'https://www.copy.ai/', keywords: ['writing', 'copywriting', 'ads', 'social media', 'email', 'text', 'text generation', 'slogan generator'] },
+            
+            // Image & Art
+            { name: 'Midjourney', category: 'Image & Art', useCase: 'A proprietary AI program that creates beautiful and artistic images from text prompts.', pricing: 'Subscription', link: 'https://www.midjourney.com/', keywords: ['image', 'art', 'ai art', 'prompt', 'discord', 'imagination', 'drawing', 'picture', 'image generation', 'art generation', 'graphics', 'visuals', 'imageai', 'picture generator'] },
+            { name: 'DALL-E 3', category: 'Image & Art', useCase: 'AI system by OpenAI that creates highly detailed images from text descriptions.', pricing: 'Included in ChatGPT+', link: 'https://openai.com/dall-e-3', keywords: ['image', 'openai', 'art', 'realistic', 'chatgpt', 'imagination', 'graphics', 'image generation', 'art generation', 'imageai'] },
+            { name: 'Stable Diffusion', category: 'Image & Art', useCase: 'A powerful, open-source text-to-image model for creating detailed imagery.', pricing: 'Open Source', link: 'https://stability.ai/', keywords: ['image', 'open source', 'ai art', 'model', 'controlnet', 'drawing', 'picture', 'image generation', 'imageai', 'free image generator'] },
+            { name: 'Leonardo Ai', category: 'Image & Art', useCase: 'A full suite for creating game assets, concept art, and other graphical content.', pricing: 'Freemium', link: 'https://leonardo.ai/', keywords: ['image', 'art', 'game assets', 'character design', 'graphics', 'textures', 'image generation', 'imaginations', 'imageai'] },
+            
+            // Chatbot & Research
+            { name: 'ChatGPT', category: 'Chatbot & Research', useCase: 'The foundational large language model from OpenAI for conversation, ideation, and more.', pricing: 'Freemium', link: 'https://chat.openai.com/', keywords: ['chatbot', 'conversation', 'writing', 'research', 'openai', 'answer', 'dialogue', 'assistant'] },
+            { name: 'Perplexity AI', category: 'Chatbot & Research', useCase: 'An AI-powered answer engine that provides direct answers with citations from the web.', pricing: 'Freemium', link: 'https://www.perplexity.ai/', keywords: ['research', 'search', 'answer engine', 'citations', 'academic', 'discover', 'fact check'] },
+            
+            // Code & Development
+            { name: 'GitHub Copilot', category: 'Code & Development', useCase: 'Your AI pair programmer. Get suggestions for code right in your editor.', pricing: 'Subscription', link: 'https://github.com/features/copilot', keywords: ['code', 'programming', 'developer', 'software', 'vscode', 'python', 'javascript', 'code generation', 'coding assistant'] },
+            
+            // Audio & Music
+            { name: 'ElevenLabs', category: 'Audio & Music', useCase: 'Generative voice AI for lifelike text-to-speech and voice cloning.', pricing: 'Freemium', link: 'https://elevenlabs.io/', keywords: ['audio', 'voice', 'tts', 'cloning', 'dubbing', 'speech', 'narrator', 'voice generation', 'music generation', 'voice changer', 'voice ai'] },
+            { name: 'Suno AI', category: 'Audio & Music', useCase: 'Generate original songs with lyrics and instruments from a simple prompt.', pricing: 'Freemium', link: 'https://www.suno.ai/', keywords: ['audio', 'music', 'song', 'generation', 'lyrics', 'melody', 'instrumental', 'music generation', 'song creation', 'music ai'] },
+        ];
+
+        // --- DOM Elements ---
+        const stickyNav = document.getElementById('sticky-nav');
+        const heroSection = document.getElementById('hero-section');
+        const mainSearchInput = document.getElementById('mainSearchInput');
+        const stickySearchInput = document.getElementById('stickySearchInput');
+        const mainSuggestions = document.getElementById('main-suggestions');
+        const stickySuggestions = document.getElementById('sticky-suggestions');
+        const toolsSection = document.getElementById('tools-section');
+        const aiGrid = document.getElementById('aiGrid');
+        const noResults = document.getElementById('noResults');
+        const filterButtonsContainer = document.getElementById('filter-buttons');
+        const subscribeForm = document.getElementById('subscribe-form');
+        const emailInput = document.getElementById('email-input');
+        const subscribeMessage = document.getElementById('subscribe-message');
+        
+        let currentCategory = 'All';
+
+        // --- Generate Filter Buttons ---
+        function generateFilterButtons() {
+            const categories = ['All', ...new Set(aiTools.map(tool => tool.category))];
+            filterButtonsContainer.innerHTML = categories.map(category => `
+                <button class="filter-btn ${category === 'All' ? 'active' : ''} px-4 py-2 text-sm font-semibold bg-white text-gray-700 rounded-full" data-category="${category}">
+                    ${category}
+                </button>
+            `).join('');
+        }
+
+        // --- Display AI Tool Cards ---
+        function displayTools(tools) {
+            aiGrid.innerHTML = '';
+            noResults.classList.toggle('hidden', tools.length > 0);
+            
+            tools.forEach(tool => {
+                const card = document.createElement('div');
+                card.className = 'ai-card border border-earth-tone rounded-xl shadow-md overflow-hidden flex flex-col';
+                card.innerHTML = `
+                    <div class="p-6 flex-grow">
+                        <div class="flex items-center mb-4">
+                            <img class="h-16 w-16 rounded-full object-cover mr-4 border-2 border-gray-100" src="https://placehold.co/100x100/303F9F/FFFFFF?text=${tool.name.charAt(0)}" alt="${tool.name} logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/cccccc/ffffff?text=Error';">
+                            <div>
+                                <p class="text-xs text-deep-indigo font-semibold uppercase tracking-wider">${tool.category}</p>
+                                <h3 class="text-xl font-bold text-gray-900">${tool.name}</h3>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4 h-24">${tool.useCase}</p>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="font-semibold text-gray-700">Pricing:</span>
+                            <span class="bg-indigo-100 text-deep-indigo font-semibold py-1 px-3 rounded-full">${tool.pricing}</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-gray-50 border-t border-gray-100">
+                        <a href="${tool.link}" target="_blank" class="block w-full text-center bg-deep-indigo text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 shadow-sm hover:shadow-lg transform hover:-translate-y-0.5">
+                            Try Now
+                        </a>
+                    </div>
+                `;
+                aiGrid.appendChild(card);
+            });
+        }
+
+        // --- Main filtering and display function ---
+        function filterAndDisplay(searchTerm, shouldScroll = false) {
+            if (searchTerm) {
+                currentCategory = 'All';
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                const allButton = document.querySelector('.filter-btn[data-category="All"]');
+                if (allButton) allButton.classList.add('active');
+            }
+
+            let filteredTools = aiTools;
+
+            if (currentCategory !== 'All') {
+                filteredTools = filteredTools.filter(tool => tool.category === currentCategory);
+            }
+
+            if (searchTerm) {
+                filteredTools = filteredTools.filter(tool => {
+                    const searchableText = `${tool.name} ${tool.category} ${tool.useCase} ${tool.keywords.join(' ')}`.toLowerCase();
+                    return searchableText.includes(searchTerm);
+                });
+            }
+            
+            displayTools(filteredTools);
+
+            if (shouldScroll && searchTerm) {
+                toolsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // --- Suggestions Logic ---
+        function updateSuggestions(input, container) {
+            const searchTerm = input.value.toLowerCase();
+            container.innerHTML = '';
+
+            if (searchTerm.length < 2) {
+                container.classList.remove('active');
+                return;
+            }
+
+            const suggestions = aiTools.filter(tool => {
+                const searchableText = `${tool.name} ${tool.keywords.join(' ')}`.toLowerCase();
+                return searchableText.includes(searchTerm);
+            }).slice(0, 5); // Limit to 5 suggestions
+
+            if (suggestions.length > 0) {
+                suggestions.forEach(tool => {
+                    const item = document.createElement('div');
+                    item.className = 'suggestion-item';
+                    item.innerHTML = `
+                        <span class="font-semibold">${tool.name}</span>
+                        <span class="ml-auto text-sm text-gray-500">${tool.category}</span>
+                    `;
+                    item.addEventListener('click', () => {
+                        input.value = tool.name;
+                        if (input.id === 'mainSearchInput') stickySearchInput.value = tool.name;
+                        else mainSearchInput.value = tool.name;
+                        
+                        container.classList.remove('active');
+                        filterAndDisplay(tool.name.toLowerCase(), true);
+                    });
+                    container.appendChild(item);
+                });
+                container.classList.add('active');
+            } else {
+                container.classList.remove('active');
+            }
+        }
+
+        // --- Event Handlers ---
+        function handleSearchInput(event) {
+            const activeInput = event.target;
+            const otherInput = activeInput.id === 'mainSearchInput' ? stickySearchInput : mainSearchInput;
+            const suggestionsContainer = activeInput.id === 'mainSearchInput' ? mainSuggestions : stickySuggestions;
+            
+            otherInput.value = activeInput.value;
+            updateSuggestions(activeInput, suggestionsContainer);
+        }
+
+        function handleSearchEnter(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const searchTerm = event.target.value.toLowerCase();
+                if (searchTerm) {
+                    mainSuggestions.classList.remove('active');
+                    stickySuggestions.classList.remove('active');
+                    filterAndDisplay(searchTerm, true);
+                }
+            }
+        }
+
+        function handleCategoryClick(event) {
+            currentCategory = event.target.dataset.category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            mainSearchInput.value = '';
+            stickySearchInput.value = '';
+            mainSuggestions.classList.remove('active');
+            stickySuggestions.classList.remove('active');
+            filterAndDisplay('', false);
+        }
+        
+        // --- Subscription Form Logic (Reverted to simple frontend-only version) ---
+        function handleSubscription(event) {
+            event.preventDefault();
+            const email = emailInput.value;
+            const subscribeButton = document.getElementById('subscribe-button');
+            if (email) {
+                subscribeButton.textContent = 'Subscribing...';
+                subscribeButton.disabled = true;
+                
+                setTimeout(() => {
+                    subscribeMessage.textContent = 'Thank you for subscribing!';
+                    subscribeMessage.classList.add('text-green-600');
+                    emailInput.value = '';
+                    subscribeButton.textContent = 'Subscribe';
+                    subscribeButton.disabled = false;
+                    
+                    setTimeout(() => {
+                        subscribeMessage.textContent = '';
+                        subscribeMessage.classList.remove('text-green-600');
+                    }, 4000);
+                }, 1000);
+            }
+        }
+
+        // --- Initial Setup ---
+        window.addEventListener('scroll', () => {
+            stickyNav.classList.toggle('scrolled', window.scrollY > heroSection.offsetHeight);
+        });
+        
+        subscribeForm.addEventListener('submit', handleSubscription);
+        
+        mainSearchInput.addEventListener('keyup', handleSearchInput);
+        stickySearchInput.addEventListener('keyup', handleSearchInput);
+        
+        mainSearchInput.addEventListener('keydown', handleSearchEnter);
+        stickySearchInput.addEventListener('keydown', handleSearchEnter);
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mainSearchInput.contains(e.target)) mainSuggestions.classList.remove('active');
+            if (!stickySearchInput.contains(e.target)) stickySuggestions.classList.remove('active');
+        });
+        
+        window.onload = () => {
+            const sortedTools = aiTools.sort((a, b) => a.name.localeCompare(b.name));
+            generateFilterButtons();
+            document.querySelectorAll('.filter-btn').forEach(button => {
+                button.addEventListener('click', handleCategoryClick);
+            });
+            displayTools(sortedTools);
+        };
+    </script>
+
 </body>
 </html>
