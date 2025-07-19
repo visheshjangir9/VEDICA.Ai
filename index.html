@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vedica.ai – AI, Simplified.</title>
+    <title>Vedica.ai – The Future of AI Discovery</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,63 +14,86 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* Custom CSS for the spiritual-tech fusion feel */
+        /* --- Custom CSS for Futuristic AI Aesthetic --- */
         html {
             scroll-behavior: smooth;
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F8F9FA; /* Slightly off-white background */
-            color: #2c3e50;
+            background-color: #000000;
+            background-image: linear-gradient(135deg, #000428 0%, #000000 50%, #0c002b 100%);
+            color: #E0E0E0;
+            overflow-x: hidden;
         }
 
         .font-heading {
             font-family: 'Orbitron', sans-serif;
         }
 
-        /* Custom Colors */
-        .bg-deep-indigo { background-color: #303F9F; }
-        .text-deep-indigo { color: #303F9F; }
-        .border-deep-indigo { border-color: #303F9F; }
-        .ring-deep-indigo:focus, .ring-deep-indigo:focus-within { --tw-ring-color: #303F9F; }
-        .hover\:bg-indigo-700:hover { background-color: #3949AB; }
-        .border-earth-tone { border-color: #D7CCC8; }
-
-        /* Redesigned Hero Section with a cleaner, elegant gradient */
-        .hero-gradient {
-            background-color: #1A237E; /* Dark Indigo Base */
-            background-image: radial-gradient(circle at top right, rgba(74, 20, 140, 0.5), transparent 40%),
-                              radial-gradient(circle at bottom left, rgba(48, 63, 159, 0.6), transparent 50%);
+        /* --- Particle Background --- */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
 
-        /* Card styles */
-        .ai-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: #FFFFFF;
-        }
-        .ai-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(48, 63, 159, 0.15);
+        /* --- Glassmorphism Effect --- */
+        .glassmorphism {
+            background: rgba(10, 10, 25, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        /* Polished Filter button styles */
+        /* --- Neon Glow Effects --- */
+        .neon-text {
+            text-shadow: 0 0 5px #00d9ff, 0 0 10px #00d9ff;
+        }
+        .neon-border {
+             border: 1px solid #00aaff;
+             box-shadow: 0 0 5px #00aaff, inset 0 0 5px #00aaff;
+        }
+
+        /* --- Hero Section & Typing Animation --- */
+        .hero-section {
+            position: relative;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="p" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 0 V100 M0 50 H100" stroke="%2300aaff" stroke-width="0.5" shape-rendering="crispEdges" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>');
+        }
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: #00d9ff;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { background-color: transparent }
+            50% { background-color: #00d9ff; }
+        }
+
+        /* --- Polished UI Elements --- */
         .filter-btn {
             transition: all 0.3s ease;
-            border: 1px solid #CFD8DC;
-        }
-        .filter-btn:hover {
-            background-color: #ECEFF1;
-            transform: translateY(-2px);
         }
         .filter-btn.active {
-            background-color: #303F9F;
-            color: white;
-            border-color: #303F9F;
-            box-shadow: 0 4px 12px rgba(48, 63, 159, 0.2);
-            transform: translateY(-2px);
+            background-color: #00aaff;
+            color: #000;
+            box-shadow: 0 0 15px #00aaff;
+        }
+        .ai-card {
+            transition: all 0.3s ease;
+        }
+        .ai-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #00d9ff;
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
         }
         
-        /* Sticky Nav styles */
+        /* --- Sticky Nav --- */
         #sticky-nav {
             transition: all 0.4s ease-in-out;
             transform: translateY(-100%);
@@ -81,13 +104,11 @@
             opacity: 1;
         }
         
-        /* Search Suggestions Box */
+        /* Search Suggestions Box (FIXED) */
         .suggestions-container {
             position: absolute;
             width: 100%;
-            background: white;
             border-radius: 1rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             margin-top: 0.5rem;
             max-height: 300px;
             overflow-y: auto;
@@ -96,6 +117,7 @@
             opacity: 0;
             transform: translateY(-10px);
             pointer-events: none;
+            border: 1px solid rgba(0, 170, 255, 0.3); /* Neon border */
         }
         .suggestions-container.active {
             opacity: 1;
@@ -108,91 +130,86 @@
             padding: 0.75rem 1.25rem;
             cursor: pointer;
             transition: background-color 0.2s ease;
+            color: #E0E0E0;
         }
         .suggestion-item:hover {
-            background-color: #f0f2f5;
+            background-color: rgba(0, 170, 255, 0.1);
         }
         .suggestion-item:not(:last-child) {
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-black">
+
+    <div id="particles-js"></div>
 
     <!-- Sticky Navigation (Initially Hidden) -->
-    <nav id="sticky-nav" class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg shadow-md">
+    <nav id="sticky-nav" class="fixed top-0 left-0 right-0 z-50 glassmorphism">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center gap-4">
-            <a href="#" class="font-heading text-2xl font-black text-deep-indigo hidden sm:block">Vedica.ai</a>
+            <a href="#" class="font-heading text-2xl font-black text-white neon-text">Vedica.ai</a>
             <div class="relative flex-grow max-w-xl">
-                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
-                </div>
-                <input type="text" id="stickySearchInput" placeholder="Search..." autocomplete="off" class="w-full py-2 pl-11 pr-4 text-gray-900 bg-gray-100 border-2 border-transparent rounded-full focus:outline-none focus:ring-2 ring-deep-indigo">
-                <div id="sticky-suggestions" class="suggestions-container"></div>
+                <input type="text" id="stickySearchInput" placeholder="Search..." autocomplete="off" class="w-full py-2 pl-5 pr-4 text-white bg-transparent border border-blue-500/30 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400 glassmorphism">
+                <div id="sticky-suggestions" class="suggestions-container glassmorphism"></div>
             </div>
-            <a href="#subscribe-section" class="flex-shrink-0 bg-deep-indigo text-white font-bold py-2 px-5 rounded-full hover:bg-indigo-700 transition-colors duration-300">
+            <a href="#subscribe-section" class="flex-shrink-0 bg-blue-600 text-white font-bold py-2 px-5 rounded-full hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300">
                 Subscribe
             </a>
         </div>
     </nav>
 
     <!-- Header & Hero Section -->
-    <header id="hero-section" class="hero-gradient text-white shadow-lg relative overflow-hidden">
+    <header id="hero-section" class="hero-section text-white relative overflow-hidden min-h-screen flex items-center justify-center">
         <div class="container mx-auto px-6 py-24 md:py-32 text-center relative z-10">
-            <h1 class="font-heading text-5xl md:text-7xl font-black leading-tight tracking-tight">
-                Vedica.ai
+            <h1 id="hero-title" class="font-heading text-5xl md:text-7xl font-black leading-tight tracking-tight text-white neon-text">
+                <span id="typing-text"></span><span class="typing-cursor"></span>
             </h1>
-            <p class="mt-4 text-lg md:text-2xl text-indigo-200 max-w-3xl mx-auto">
-                AI, Simplified.
+            <p class="mt-6 text-lg md:text-xl text-blue-200/80 max-w-3xl mx-auto">
+                One Platform. 70+ AI Tools. Endless Creativity
             </p>
         </div>
     </header>
 
     <!-- Search & Filter Section -->
-    <section id="search-and-filter" class="py-12 bg-gray-100">
+    <section id="search-and-filter" class="py-16 relative z-10">
         <div class="container mx-auto px-6">
-            <!-- Search Bar -->
-            <div class="max-w-3xl mx-auto">
+            <div class="max-w-3xl mx-auto" data-anim="fade-up">
                 <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                        <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
-                    </div>
                     <input 
                         type="text" 
                         id="mainSearchInput" 
-                        placeholder="Search for any AI tool (e.g., 'FaceSwap', 'ImageAI', 'VoiceChanger')..."
+                        placeholder="Search for any AI tool..."
                         autocomplete="off"
-                        class="w-full py-4 pl-14 pr-6 text-lg text-gray-900 bg-white border-2 border-gray-200 rounded-full focus:outline-none focus:ring-2 ring-deep-indigo focus:border-transparent transition-all duration-300"
+                        class="w-full py-4 px-6 text-lg text-white bg-transparent border-2 border-blue-500/50 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-300 glassmorphism"
                     >
-                    <div id="main-suggestions" class="suggestions-container"></div>
+                    <div id="main-suggestions" class="suggestions-container glassmorphism"></div>
                 </div>
             </div>
-            <!-- Filter Buttons -->
-            <div id="filter-buttons" class="flex flex-wrap justify-center gap-3 md:gap-4 mt-8">
+            <div id="filter-buttons" class="flex flex-wrap justify-center gap-3 md:gap-4 mt-8" data-anim="fade-up">
                 <!-- Buttons will be generated by JS -->
             </div>
         </div>
     </section>
 
     <!-- AI Tools Grid -->
-    <main id="tools-section" class="container mx-auto px-6 py-16">
+    <main id="tools-section" class="container mx-auto px-6 py-16 relative z-10">
         <div id="aiGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             <!-- AI Tool Cards will be dynamically inserted here by JavaScript -->
         </div>
         <div id="noResults" class="hidden text-center py-16">
-            <p class="text-2xl font-semibold text-gray-600">No matching AI tools found.</p>
+            <p class="text-2xl font-semibold text-gray-400">No matching AI tools found.</p>
             <p class="text-gray-500 mt-2">Try a different search or filter.</p>
         </div>
     </main>
 
     <!-- Email Subscription Section -->
-    <section id="subscribe-section" class="bg-white py-16 sm:py-20">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="font-heading text-3xl md:text-4xl font-bold text-gray-900">Stay Updated</h2>
-            <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Get notified when new AI tools are added. Join our mailing list for the latest updates.</p>
+    <section id="subscribe-section" class="py-20 relative z-10">
+        <div class="container mx-auto px-6 text-center glassmorphism rounded-2xl py-12" data-anim="fade-up">
+            <h2 class="font-heading text-3xl md:text-4xl font-bold text-white neon-text">Stay Updated</h2>
+            <p class="mt-4 text-lg text-blue-200/80 max-w-2xl mx-auto">Join our mailing list for the latest updates on new AI tools.</p>
             <form id="subscribe-form" class="mt-8 max-w-md mx-auto flex flex-col sm:flex-row gap-4">
-                <input type="email" id="email-input" required placeholder="your.email@example.com" class="w-full flex-grow px-5 py-3 text-base text-gray-900 bg-gray-100 border-2 border-gray-200 rounded-full focus:outline-none focus:ring-2 ring-deep-indigo focus:border-transparent transition-all duration-300">
-                <button type="submit" id="subscribe-button" class="bg-deep-indigo text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                <input type="email" id="email-input" required placeholder="your.email@example.com" class="w-full flex-grow px-5 py-3 text-base text-white bg-transparent border border-blue-500/30 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400 glassmorphism">
+                <button type="submit" id="subscribe-button" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300">
                     Subscribe
                 </button>
             </form>
@@ -201,56 +218,86 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400">
-        <div class="container mx-auto px-6 py-8 text-center">
+    <footer class="text-gray-500 relative z-10">
+        <div class="container mx-auto px-6 py-8 text-center border-t border-gray-800">
             <p>&copy; 2024 Vedica.ai. All Rights Reserved.</p>
-            <p class="mt-2 text-sm">A curated directory for the AI curious.</p>
         </div>
     </footer>
 
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
 
+    <!-- Particles.js for animated background -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Your fixed and working EmailJS script -->
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
         (function(){
           emailjs.init("nxhvwR5NxffzBp8Xc");
         })();
     </script>
-
-    <script src="script.js"></script>
-
+    
     <script>
-        // --- AI Tool Data with Massively Expanded Keywords for Smart Search ---
+        // --- AI Tool Data (FIXED & EXPANDED KEYWORDS) ---
         const aiTools = [
-            // Presentation
-            { name: 'Tome', category: 'Presentation', useCase: 'Generative storytelling format for creating immersive presentations and narratives.', pricing: 'Freemium', link: 'https://tome.app/', keywords: ['ppt', 'presentation', 'storytelling', 'slides', 'deck', 'narrative', 'report', 'slide generation', 'powerpoint ai'] },
-            { name: 'Gamma', category: 'Presentation', useCase: 'A new medium for presenting ideas. Creates beautiful docs, decks & webpages.', pricing: 'Freemium', link: 'https://gamma.app/', keywords: ['ppt', 'presentation', 'webpage', 'docs', 'slides', 'memo', 'document', 'slide generation'] },
+            // Chatbots & Assistants
+            { name: 'ChatGPT', category: 'Chatbot & Assistant', useCase: 'Conversational AI for answering questions, writing, and brainstorming.', pricing: 'Freemium', link: 'https://chatgpt.com', keywords: ['chatbot', 'openai', 'conversation', 'writing', 'research', 'assistant'] },
+            { name: 'Claude', category: 'Chatbot & Assistant', useCase: 'A next-gen AI assistant focused on being helpful, harmless, and honest.', pricing: 'Freemium', link: 'https://claude.ai', keywords: ['chatbot', 'anthropic', 'writing', 'summary', 'assistant'] },
+            { name: 'Gemini', category: 'Chatbot & Assistant', useCase: 'Google\'s multimodal AI model for creative and informative tasks.', pricing: 'Freemium', link: 'https://gemini.google.com', keywords: ['chatbot', 'google', 'bard', 'multimodal', 'assistant'] },
+            { name: 'Perplexity AI', category: 'Chatbot & Assistant', useCase: 'An AI-powered answer engine that provides direct answers with citations.', pricing: 'Freemium', link: 'https://perplexity.ai', keywords: ['research', 'search', 'answer engine', 'citations', 'assistant'] },
+            { name: 'Replika', category: 'Chatbot & Assistant', useCase: 'An AI companion who is eager to learn and would love to see the world through your eyes.', pricing: 'Freemium', link: 'https://replika.com', keywords: ['ai companion', 'chatbot', 'friendship', 'assistant'] },
+            { name: 'Character.AI', category: 'Chatbot & Assistant', useCase: 'Create and talk to AI characters, from historical figures to original creations.', pricing: 'Freemium', link: 'https://character.ai', keywords: ['roleplay', 'chatbot', 'entertainment', 'assistant'] },
+            { name: 'Pi AI', category: 'Chatbot & Assistant', useCase: 'A supportive and smart personal AI designed for conversation.', pricing: 'Free', link: 'https://pi.ai', keywords: ['personal ai', 'assistant', 'conversation'] },
+            { name: 'You.com', category: 'Chatbot & Assistant', useCase: 'A search engine with integrated AI chat and tools.', pricing: 'Freemium', link: 'https://you.com', keywords: ['search engine', 'chatbot', 'research'] },
+
+            // Image & Art Generation
+            { name: 'Midjourney', category: 'Image & Art', useCase: 'A proprietary AI program that creates beautiful and artistic images from text.', pricing: 'Subscription', link: 'https://midjourney.com', keywords: ['image', 'art', 'ai art', 'prompt', 'discord', 'imageai', 'image generation', 'picture'] },
+            { name: 'DALL-E 3', category: 'Image & Art', useCase: 'AI system by OpenAI that creates highly detailed images from text descriptions.', pricing: 'Included in ChatGPT+', link: 'https://openai.com/dall-e-3', keywords: ['image', 'openai', 'art', 'realistic', 'imageai', 'image generation', 'picture'] },
+            { name: 'Stable Diffusion', category: 'Image & Art', useCase: 'A powerful, open-source text-to-image model for creating detailed imagery.', pricing: 'Open Source', link: 'https://stability.ai', keywords: ['image', 'open source', 'ai art', 'model', 'imageai', 'image generation', 'picture'] },
+            { name: 'Leonardo Ai', category: 'Image & Art', useCase: 'A full suite for creating game assets, concept art, and other graphical content.', pricing: 'Freemium', link: 'https://leonardo.ai', keywords: ['image', 'game assets', 'character design', 'art', 'image generation', 'picture'] },
+            { name: 'Adobe Firefly', category: 'Image & Art', useCase: 'Adobe\'s family of creative generative AI models for image and video.', pricing: 'Freemium', link: 'https://firefly.adobe.com', keywords: ['image', 'adobe', 'video generation', 'design', 'image generation', 'picture'] },
+            { name: 'Krea AI', category: 'Image & Art', useCase: 'Real-time AI image and avatar generation for creative workflows.', pricing: 'Freemium', link: 'https://krea.ai', keywords: ['image', 'avatar', 'real-time', 'image generation', 'picture'] },
+            { name: 'Canva Magic Studio', category: 'Image & Art', useCase: 'Suite of AI tools within Canva, including text-to-image and magic design.', pricing: 'Freemium', link: 'https://canva.com/magic-studio', keywords: ['design suite', 'image generation', 'social media graphics', 'picture'] },
+            { name: 'Looka', category: 'Image & Art', useCase: 'AI-powered logo generator for creating professional brand identities.', pricing: 'Paid', link: 'https://looka.com', keywords: ['logo generator', 'branding', 'design'] },
             
             // Video & Animation
-            { name: 'Runway', category: 'Video & Animation', useCase: 'Advanced AI video tools, from text-to-video (Gen-2) to motion tracking.', pricing: 'Freemium', link: 'https://runwayml.com/', keywords: ['video', 'editing', 'vfx', 'filmmaking', 'gen-2', 'animation', 'movie', 'clip', 'video generation', 'video creation', 'special effects'] },
-            { name: 'Synthesia', category: 'Video & Animation', useCase: 'Create professional videos with AI avatars and voiceovers in over 120 languages.', pricing: 'Subscription', link: 'https://www.synthesia.io/', keywords: ['video', 'avatar', 'voiceover', 'synthesis', 'training', 'talking head', 'video generation', 'digital human', 'presenter', 'faceswap', 'voice changer'] },
-            { name: 'Pika', category: 'Video & Animation', useCase: 'Idea-to-video platform that brings your creativity to motion with AI.', pricing: 'Freemium', link: 'https://pika.art/', keywords: ['video', 'generation', 'creative', 'animation', 'text-to-video', 'motion', 'video creation', 'animate image'] },
-            { name: 'HeyGen', category: 'Video & Animation', useCase: 'AI video platform with customizable avatars, voice cloning, and text-to-video.', pricing: 'Freemium', link: 'https://www.heygen.com/', keywords: ['video', 'avatar', 'spokesperson', 'marketing', 'dubbing', 'video generation', 'faceswap', 'talking photo'] },
+            { name: 'Runway', category: 'Video & Animation', useCase: 'Advanced AI video tools, from text-to-video (Gen-2) to motion tracking.', pricing: 'Freemium', link: 'https://runwayml.com', keywords: ['video', 'editing', 'vfx', 'text-to-video', 'video generation', 'animation'] },
+            { name: 'Synthesia', category: 'Video & Animation', useCase: 'Create professional videos with AI avatars and voiceovers in minutes.', pricing: 'Subscription', link: 'https://synthesia.io', keywords: ['video', 'avatar', 'voiceover', 'faceswap', 'video creation'] },
+            { name: 'Pictory', category: 'Video & Animation', useCase: 'AI video creator that turns scripts and blog posts into engaging videos.', pricing: 'Subscription', link: 'https://pictory.ai', keywords: ['video', 'blog to video', 'marketing', 'video creation'] },
+            { name: 'OpusClip', category: 'Video & Animation', useCase: 'Turns long videos into viral short clips for social media with one click.', pricing: 'Freemium', link: 'https://opusclip.com', keywords: ['video clipper', 'shorts', 'reels', 'tiktok'] },
+            { name: 'Lumen5', category: 'Video & Animation', useCase: 'An online video maker powered by AI that makes video creation easy.', pricing: 'Freemium', link: 'https://lumen5.com', keywords: ['video creator', 'marketing video', 'automation'] },
+            { name: 'Steve.AI', category: 'Video & Animation', useCase: 'AI-powered tool to create animated and live-action videos from scripts.', pricing: 'Freemium', link: 'https://steve.ai', keywords: ['video generator', 'animation', 'live-action'] },
+            { name: 'InVideo', category: 'Video & Animation', useCase: 'Online video editor with templates and AI-powered features for quick creation.', pricing: 'Freemium', link: 'https://invideo.io', keywords: ['video generator', 'editor', 'templates'] },
             
             // Writing & Content
-            { name: 'Jasper', category: 'Writing & Content', useCase: 'The enterprise-grade AI copilot for marketing teams to create on-brand content.', pricing: 'Subscription', link: 'https://www.jasper.ai/', keywords: ['writing', 'copywriting', 'marketing', 'content', 'seo', 'blog', 'story', 'text generation', 'article writer'] },
-            { name: 'Copy.ai', category: 'Writing & Content', useCase: 'AI-powered copywriter that generates high-quality marketing copy and content.', pricing: 'Freemium', link: 'https://www.copy.ai/', keywords: ['writing', 'copywriting', 'ads', 'social media', 'email', 'text', 'text generation', 'slogan generator'] },
-            
-            // Image & Art
-            { name: 'Midjourney', category: 'Image & Art', useCase: 'A proprietary AI program that creates beautiful and artistic images from text prompts.', pricing: 'Subscription', link: 'https://www.midjourney.com/', keywords: ['image', 'art', 'ai art', 'prompt', 'discord', 'imagination', 'drawing', 'picture', 'image generation', 'art generation', 'graphics', 'visuals', 'imageai', 'picture generator'] },
-            { name: 'DALL-E 3', category: 'Image & Art', useCase: 'AI system by OpenAI that creates highly detailed images from text descriptions.', pricing: 'Included in ChatGPT+', link: 'https://openai.com/dall-e-3', keywords: ['image', 'openai', 'art', 'realistic', 'chatgpt', 'imagination', 'graphics', 'image generation', 'art generation', 'imageai'] },
-            { name: 'Stable Diffusion', category: 'Image & Art', useCase: 'A powerful, open-source text-to-image model for creating detailed imagery.', pricing: 'Open Source', link: 'https://stability.ai/', keywords: ['image', 'open source', 'ai art', 'model', 'controlnet', 'drawing', 'picture', 'image generation', 'imageai', 'free image generator'] },
-            { name: 'Leonardo Ai', category: 'Image & Art', useCase: 'A full suite for creating game assets, concept art, and other graphical content.', pricing: 'Freemium', link: 'https://leonardo.ai/', keywords: ['image', 'art', 'game assets', 'character design', 'graphics', 'textures', 'image generation', 'imaginations', 'imageai'] },
-            
-            // Chatbot & Research
-            { name: 'ChatGPT', category: 'Chatbot & Research', useCase: 'The foundational large language model from OpenAI for conversation, ideation, and more.', pricing: 'Freemium', link: 'https://chat.openai.com/', keywords: ['chatbot', 'conversation', 'writing', 'research', 'openai', 'answer', 'dialogue', 'assistant'] },
-            { name: 'Perplexity AI', category: 'Chatbot & Research', useCase: 'An AI-powered answer engine that provides direct answers with citations from the web.', pricing: 'Freemium', link: 'https://www.perplexity.ai/', keywords: ['research', 'search', 'answer engine', 'citations', 'academic', 'discover', 'fact check'] },
+            { name: 'Notion AI', category: 'Writing & Content', useCase: 'AI assistant integrated into the Notion workspace for summarizing and writing.', pricing: 'Add-on', link: 'https://notion.com', keywords: ['productivity', 'writing', 'notes', 'summary', 'ppt'] },
+            { name: 'Jasper', category: 'Writing & Content', useCase: 'The enterprise-grade AI copilot for marketing teams to create on-brand content.', pricing: 'Subscription', link: 'https://www.jasper.ai/', keywords: ['writing', 'copywriting', 'marketing', 'seo'] },
+            { name: 'Copy.ai', category: 'Writing & Content', useCase: 'AI-powered copywriter that generates high-quality marketing copy and content.', pricing: 'Freemium', link: 'https://www.copy.ai/', keywords: ['writing', 'copywriting', 'ads', 'social media'] },
+            { name: 'Grammarly', category: 'Writing & Content', useCase: 'AI-powered writing assistant for checking grammar, spelling, and tone.', pricing: 'Freemium', link: 'https://grammarly.com', keywords: ['editing', 'grammar checker', 'proofreading'] },
+            { name: 'QuillBot', category: 'Writing & Content', useCase: 'AI-powered paraphrasing tool, grammar checker, and summarizer.', pricing: 'Freemium', link: 'https://quillbot.com', keywords: ['paraphrasing', 'summarizer', 'writing'] },
+            { name: 'Writesonic', category: 'Writing & Content', useCase: 'Create SEO-friendly content for blogs, ads, emails, and websites.', pricing: 'Freemium', link: 'https://writesonic.com', keywords: ['content writer', 'seo', 'marketing'] },
+            { name: 'Rytr', category: 'Writing & Content', useCase: 'An AI writing assistant for fast, affordable, high-quality content.', pricing: 'Freemium', link: 'https://rytr.me', keywords: ['writing assistant', 'content creation'] },
+            { name: 'Gamma', category: 'Presentation', useCase: 'A new medium for presenting ideas. Creates beautiful docs, decks & webpages.', pricing: 'Freemium', link: 'https://gamma.app', keywords: ['ppt', 'presentation', 'slides', 'deck'] },
+
+            // Audio & Music
+            { name: 'ElevenLabs', category: 'Audio & Music', useCase: 'Generative voice AI for lifelike text-to-speech and voice cloning.', pricing: 'Freemium', link: 'https://elevenlabs.io', keywords: ['voice ai', 'text-to-speech', 'tts', 'voice cloning', 'voice changer', 'music generation'] },
+            { name: 'Suno', category: 'Audio & Music', useCase: 'Generate original songs with lyrics and instruments from a simple prompt.', pricing: 'Freemium', link: 'https://suno.ai', keywords: ['music', 'song creator', 'lyrics', 'music generation'] },
+            { name: 'Udio', category: 'Audio & Music', useCase: 'AI music generator for creating high-quality tracks in various styles.', pricing: 'Freemium', link: 'https://udio.ai', keywords: ['music generator', 'song creation', 'music generation'] },
+            { name: 'Murf', category: 'Audio & Music', useCase: 'Versatile AI voice generator for creating studio-quality voice overs.', pricing: 'Freemium', link: 'https://murf.ai', keywords: ['text-to-speech', 'voice over', 'tts', 'music generation'] },
+            { name: 'AIVA', category: 'Audio & Music', useCase: 'An AI that composes emotional soundtracks for films, games, and more.', pricing: 'Freemium', link: 'https://aiva.ai', keywords: ['music', 'soundtrack', 'composition', 'music generation'] },
+
+            // Productivity & Automation
+            { name: 'Otter.ai', category: 'Productivity & Automation', useCase: 'AI meeting assistant that records audio, writes notes, and generates summaries.', pricing: 'Freemium', link: 'https://otter.ai', keywords: ['meeting transcription', 'notes', 'summary'] },
+            { name: 'Zapier', category: 'Productivity & Automation', useCase: 'Automate workflows by connecting your apps and services, with AI features.', pricing: 'Freemium', link: 'https://zapier.com', keywords: ['workflow automation', 'integration'] },
+            { name: 'IFTTT', category: 'Productivity & Automation', useCase: 'Connects different apps and devices to create powerful automations.', pricing: 'Freemium', link: 'https://ifttt.com', keywords: ['workflow automation', 'applets'] },
+            { name: 'Make.com', category: 'Productivity & Automation', useCase: 'A visual platform to design, build, and automate anything from tasks to workflows.', pricing: 'Freemium', link: 'https://make.com', keywords: ['automation tool', 'integration', 'workflow'] },
             
             // Code & Development
-            { name: 'GitHub Copilot', category: 'Code & Development', useCase: 'Your AI pair programmer. Get suggestions for code right in your editor.', pricing: 'Subscription', link: 'https://github.com/features/copilot', keywords: ['code', 'programming', 'developer', 'software', 'vscode', 'python', 'javascript', 'code generation', 'coding assistant'] },
-            
-            // Audio & Music
-            { name: 'ElevenLabs', category: 'Audio & Music', useCase: 'Generative voice AI for lifelike text-to-speech and voice cloning.', pricing: 'Freemium', link: 'https://elevenlabs.io/', keywords: ['audio', 'voice', 'tts', 'cloning', 'dubbing', 'speech', 'narrator', 'voice generation', 'music generation', 'voice changer', 'voice ai'] },
-            { name: 'Suno AI', category: 'Audio & Music', useCase: 'Generate original songs with lyrics and instruments from a simple prompt.', pricing: 'Freemium', link: 'https://www.suno.ai/', keywords: ['audio', 'music', 'song', 'generation', 'lyrics', 'melody', 'instrumental', 'music generation', 'song creation', 'music ai'] },
+            { name: 'GitHub Copilot', category: 'Code & Development', useCase: 'Your AI pair programmer. Get suggestions for code right in your editor.', pricing: 'Subscription', link: 'https://github.com/features/copilot', keywords: ['code', 'programming', 'developer', 'assistant'] },
+            { name: 'Tabnine', category: 'Code & Development', useCase: 'AI assistant for software developers. Code completion for all languages.', pricing: 'Freemium', link: 'https://tabnine.com', keywords: ['code completion', 'developer tool'] },
+            { name: 'Codeium', category: 'Code & Development', useCase: 'AI-powered code acceleration toolkit and coding assistant.', pricing: 'Free', link: 'https://codeium.com', keywords: ['coding assistant', 'code completion'] },
         ];
 
         // --- DOM Elements ---
@@ -274,45 +321,50 @@
         function generateFilterButtons() {
             const categories = ['All', ...new Set(aiTools.map(tool => tool.category))];
             filterButtonsContainer.innerHTML = categories.map(category => `
-                <button class="filter-btn ${category === 'All' ? 'active' : ''} px-4 py-2 text-sm font-semibold bg-white text-gray-700 rounded-full" data-category="${category}">
+                <button class="filter-btn glassmorphism text-white px-4 py-2 text-sm font-semibold rounded-full" data-category="${category}">
                     ${category}
                 </button>
             `).join('');
+            document.querySelector('.filter-btn[data-category="All"]').classList.add('active');
         }
 
         // --- Display AI Tool Cards ---
-        function displayTools(tools) {
-            aiGrid.innerHTML = '';
-            noResults.classList.toggle('hidden', tools.length > 0);
+        function displayTools(tools, container) {
+            container.innerHTML = '';
+            if (container.id === 'aiGrid') {
+                noResults.classList.toggle('hidden', tools.length > 0);
+            }
             
             tools.forEach(tool => {
                 const card = document.createElement('div');
-                card.className = 'ai-card border border-earth-tone rounded-xl shadow-md overflow-hidden flex flex-col';
+                card.className = 'ai-card glassmorphism rounded-xl overflow-hidden flex flex-col';
                 card.innerHTML = `
                     <div class="p-6 flex-grow">
                         <div class="flex items-center mb-4">
-                            <img class="h-16 w-16 rounded-full object-cover mr-4 border-2 border-gray-100" src="https://placehold.co/100x100/303F9F/FFFFFF?text=${tool.name.charAt(0)}" alt="${tool.name} logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/cccccc/ffffff?text=Error';">
+                            <div class="h-16 w-16 rounded-full flex items-center justify-center mr-4 bg-blue-900/50 neon-border">
+                               <span class="font-heading text-2xl text-white neon-text">${tool.name.charAt(0)}</span>
+                            </div>
                             <div>
-                                <p class="text-xs text-deep-indigo font-semibold uppercase tracking-wider">${tool.category}</p>
-                                <h3 class="text-xl font-bold text-gray-900">${tool.name}</h3>
+                                <p class="text-xs text-blue-300 font-semibold uppercase tracking-wider">${tool.category}</p>
+                                <h3 class="text-xl font-bold text-white">${tool.name}</h3>
                             </div>
                         </div>
-                        <p class="text-gray-600 text-sm mb-4 h-24">${tool.useCase}</p>
+                        <p class="text-gray-300 text-sm mb-4 h-24">${tool.useCase}</p>
                         <div class="flex items-center justify-between text-sm">
-                            <span class="font-semibold text-gray-700">Pricing:</span>
-                            <span class="bg-indigo-100 text-deep-indigo font-semibold py-1 px-3 rounded-full">${tool.pricing}</span>
+                            <span class="font-semibold text-gray-200">Pricing:</span>
+                            <span class="bg-blue-500/20 text-blue-300 font-semibold py-1 px-3 rounded-full">${tool.pricing}</span>
                         </div>
                     </div>
-                    <div class="p-4 bg-gray-50 border-t border-gray-100">
-                        <a href="${tool.link}" target="_blank" class="block w-full text-center bg-deep-indigo text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 shadow-sm hover:shadow-lg transform hover:-translate-y-0.5">
+                    <div class="p-4 bg-black/20">
+                        <a href="${tool.link}" target="_blank" class="block w-full text-center bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300">
                             Try Now
                         </a>
                     </div>
                 `;
-                aiGrid.appendChild(card);
+                container.appendChild(card);
             });
         }
-
+        
         // --- Main filtering and display function ---
         function filterAndDisplay(searchTerm, shouldScroll = false) {
             if (searchTerm) {
@@ -335,14 +387,46 @@
                 });
             }
             
-            displayTools(filteredTools);
+            displayTools(filteredTools, aiGrid);
+            // Re-run the card animation for the newly filtered cards
+            gsap.fromTo("#aiGrid .ai-card", { opacity: 0, y: 50 }, { opacity: 1, y: 0, stagger: 0.1, duration: 0.5, ease: "power2.out" });
+
 
             if (shouldScroll && searchTerm) {
                 toolsSection.scrollIntoView({ behavior: 'smooth' });
             }
         }
 
-        // --- Suggestions Logic ---
+        // --- Event Handlers ---
+        function handleSubscription(e) {
+            e.preventDefault();
+            const email = emailInput.value;
+            const subscribeButton = document.getElementById('subscribe-button');
+            
+            subscribeButton.textContent = "Subscribing...";
+            subscribeButton.disabled = true;
+
+            emailjs.send("service_ajivtzp", "template_w4nf7gq", { to_email: email })
+            .then(() => {
+                subscribeMessage.textContent = 'Thank you for subscribing!';
+                subscribeMessage.classList.add('text-green-400');
+                subscribeForm.reset();
+            })
+            .catch((err) => {
+                console.error("EmailJS Error:", err);
+                subscribeMessage.textContent = 'Something went wrong. Please try again.';
+                subscribeMessage.classList.add('text-red-400');
+            })
+            .finally(() => {
+                subscribeButton.textContent = "Subscribe";
+                subscribeButton.disabled = false;
+                setTimeout(() => {
+                    subscribeMessage.textContent = '';
+                    subscribeMessage.classList.remove('text-green-400', 'text-red-400');
+                }, 5000);
+            });
+        };
+        
         function updateSuggestions(input, container) {
             const searchTerm = input.value.toLowerCase();
             container.innerHTML = '';
@@ -355,15 +439,15 @@
             const suggestions = aiTools.filter(tool => {
                 const searchableText = `${tool.name} ${tool.keywords.join(' ')}`.toLowerCase();
                 return searchableText.includes(searchTerm);
-            }).slice(0, 5); // Limit to 5 suggestions
+            }).slice(0, 5);
 
             if (suggestions.length > 0) {
                 suggestions.forEach(tool => {
                     const item = document.createElement('div');
                     item.className = 'suggestion-item';
                     item.innerHTML = `
-                        <span class="font-semibold">${tool.name}</span>
-                        <span class="ml-auto text-sm text-gray-500">${tool.category}</span>
+                        <span class="font-semibold text-white">${tool.name}</span>
+                        <span class="ml-auto text-sm text-gray-400">${tool.category}</span>
                     `;
                     item.addEventListener('click', () => {
                         input.value = tool.name;
@@ -380,17 +464,7 @@
                 container.classList.remove('active');
             }
         }
-
-        // --- Event Handlers ---
-        function handleSearchInput(event) {
-            const activeInput = event.target;
-            const otherInput = activeInput.id === 'mainSearchInput' ? stickySearchInput : mainSearchInput;
-            const suggestionsContainer = activeInput.id === 'mainSearchInput' ? mainSuggestions : stickySuggestions;
-            
-            otherInput.value = activeInput.value;
-            updateSuggestions(activeInput, suggestionsContainer);
-        }
-
+        
         function handleSearchEnter(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
@@ -403,76 +477,113 @@
             }
         }
 
-        function handleCategoryClick(event) {
-            currentCategory = event.target.dataset.category;
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            mainSearchInput.value = '';
-            stickySearchInput.value = '';
-            mainSuggestions.classList.remove('active');
-            stickySuggestions.classList.remove('active');
-            filterAndDisplay('', false);
-        }
-        
+        // --- Animations & Initial Setup ---
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
 
-        function handleSubscription(e) {
-            e.preventDefault();
-            const email = document.getElementById("email-input").value;
-            // Save to Firebase (if needed)
-            // Optional: Add code to store the email in Firestore or Realtime DB
+            // --- Hero Animations ---
+            const heroTimeline = gsap.timeline({delay: 0.5});
+            heroTimeline.from("#hero-title", { opacity: 0, y: 20, duration: 1 })
+                        .from("#hero-section p", { opacity: 0, y: 20, duration: 1 }, "-=0.5");
 
-            // Send Email via EmailJS
-            emailjs.send("service_ajivtzp", "template_w4nf7gq", {
-                to_email: email
-            })
-            .then(() => {
-               setTimeout(() => {
-                    subscribeMessage.textContent = 'Thank you for subscribing!';
-                    subscribeMessage.classList.add('text-green-600');
-                    emailInput.value = '';
-                    subscribeButton.textContent = 'Subscribe';
-                    subscribeButton.disabled = false;
-                    
-                    setTimeout(() => {
-                        subscribeMessage.textContent = '';
-                        subscribeMessage.classList.remove('text-green-600');
-                    }, 4000);
-                }, 1000);
-
-                document.getElementById("subscribe-form").reset();
-            })
-            .catch((err) => {
-                console.error("EmailJS Error:", err);
-                alert("Something went wrong. Please try again.");
+            // --- Parallax Effect ---
+            gsap.to("#particles-js", {
+                yPercent: -20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
             });
-        };
 
-        // --- Initial Setup ---
-        window.addEventListener('scroll', () => {
-            stickyNav.classList.toggle('scrolled', window.scrollY > heroSection.offsetHeight);
-        });
-        
-        subscribeForm.addEventListener('submit', handleSubscription);
-        
-        mainSearchInput.addEventListener('keyup', handleSearchInput);
-        stickySearchInput.addEventListener('keyup', handleSearchInput);
-        
-        mainSearchInput.addEventListener('keydown', handleSearchEnter);
-        stickySearchInput.addEventListener('keydown', handleSearchEnter);
+            // --- Scroll-triggered Reveals ---
+            gsap.utils.toArray("[data-anim='fade-up']").forEach(elem => {
+                gsap.fromTo(elem, { opacity: 0, y: 50 }, { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 1, 
+                    ease: "power2.out",
+                    scrollTrigger: { 
+                        trigger: elem, 
+                        start: "top 90%", 
+                        toggleActions: "play none none none" 
+                    } 
+                });
+            });
+            
+            gsap.fromTo("#aiGrid .ai-card", { opacity: 0, y: 50 }, { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.5,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: { 
+                    trigger: "#aiGrid", 
+                    start: "top 85%", 
+                    toggleActions: "play none none none" 
+                } 
+            });
 
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mainSearchInput.contains(e.target)) mainSuggestions.classList.remove('active');
-            if (!stickySearchInput.contains(e.target)) stickySuggestions.classList.remove('active');
-        });
-        
-        window.onload = () => {
+            // --- General Setup ---
             const sortedTools = aiTools.sort((a, b) => a.name.localeCompare(b.name));
             generateFilterButtons();
             document.querySelectorAll('.filter-btn').forEach(button => {
-                button.addEventListener('click', handleCategoryClick);
+                button.addEventListener('click', (e) => {
+                    currentCategory = e.target.dataset.category;
+                    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    filterAndDisplay(mainSearchInput.value.toLowerCase(), false);
+                });
             });
-            displayTools(sortedTools);
+            displayTools(sortedTools, aiGrid);
+            
+            // --- Event Listeners ---
+            window.addEventListener('scroll', () => {
+                stickyNav.classList.toggle('scrolled', window.scrollY > heroSection.offsetHeight);
+                // FIX: Hide suggestions on scroll
+                mainSuggestions.classList.remove('active');
+                stickySuggestions.classList.remove('active');
+            });
+            
+            subscribeForm.addEventListener('submit', handleSubscription);
+            
+            mainSearchInput.addEventListener('keyup', (e) => updateSuggestions(e.target, mainSuggestions));
+            stickySearchInput.addEventListener('keyup', (e) => updateSuggestions(e.target, stickySuggestions));
+            mainSearchInput.addEventListener('keydown', handleSearchEnter);
+            stickySearchInput.addEventListener('keydown', handleSearchEnter);
+
+            document.addEventListener('click', (e) => {
+                if (!mainSearchInput.contains(e.target)) mainSuggestions.classList.remove('active');
+                if (!stickySearchInput.contains(e.target)) stickySuggestions.classList.remove('active');
+            });
+        });
+
+        // --- Typing Animation ---
+        function typeEffect(element, text, speed) {
+            let i = 0;
+            const cursor = document.querySelector('.typing-cursor');
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    if (cursor) cursor.style.animation = 'blink 1s step-end infinite';
+                }
+            }
+            if (cursor) cursor.style.animation = 'none';
+            type();
+        }
+
+        // --- Particles.js Initialization ---
+        window.onload = () => {
+            typeEffect(document.getElementById('typing-text'), "Vedica.ai", 150);
+            particlesJS('particles-js', {
+                "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#00aaff" }, "shape": { "type": "circle" }, "opacity": { "value": 0.5, "random": true }, "size": { "value": 3, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#00aaff", "opacity": 0.2, "width": 1 }, "move": { "enable": true, "speed": 1, "direction": "none", "out_mode": "out" } },
+                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } } }
+            });
         };
     </script>
 
