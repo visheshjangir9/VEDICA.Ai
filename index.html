@@ -208,6 +208,16 @@
         </div>
     </footer>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+          emailjs.init("nxhvwR5NxffzBp8Xc");
+        })();
+    </script>
+
+    <script src="script.js"></script>
+
     <script>
         // --- AI Tool Data with Massively Expanded Keywords for Smart Search ---
         const aiTools = [
@@ -404,16 +414,19 @@
             filterAndDisplay('', false);
         }
         
-        // --- Subscription Form Logic (Reverted to simple frontend-only version) ---
-        function handleSubscription(event) {
-            event.preventDefault();
-            const email = emailInput.value;
-            const subscribeButton = document.getElementById('subscribe-button');
-            if (email) {
-                subscribeButton.textContent = 'Subscribing...';
-                subscribeButton.disabled = true;
-                
-                setTimeout(() => {
+
+        function handleSubscription(e) {
+            e.preventDefault();
+            const email = document.getElementById("email-input").value;
+            // Save to Firebase (if needed)
+            // Optional: Add code to store the email in Firestore or Realtime DB
+
+            // Send Email via EmailJS
+            emailjs.send("service_ajivtzp", "template_w4nf7gq", {
+                to_email: email
+            })
+            .then(() => {
+               setTimeout(() => {
                     subscribeMessage.textContent = 'Thank you for subscribing!';
                     subscribeMessage.classList.add('text-green-600');
                     emailInput.value = '';
@@ -425,8 +438,14 @@
                         subscribeMessage.classList.remove('text-green-600');
                     }, 4000);
                 }, 1000);
-            }
-        }
+
+                document.getElementById("subscribe-form").reset();
+            })
+            .catch((err) => {
+                console.error("EmailJS Error:", err);
+                alert("Something went wrong. Please try again.");
+            });
+        };
 
         // --- Initial Setup ---
         window.addEventListener('scroll', () => {
